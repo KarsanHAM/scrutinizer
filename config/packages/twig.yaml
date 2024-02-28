@@ -1,0 +1,9 @@
+twig:
+    paths:
+        '%kernel.project_dir%/templates': 'default'
+        '%kernel.project_dir%/vendor/surfnet/stepup-saml-bundle/templates': 'SurfnetSaml'
+    debug: '%kernel.debug%'
+    strict_variables: '%kernel.debug%'
+    globals:
+        global_view_parameters: "@Surfnet\\Webauthn\\GlobalViewParameters"
+    form_themes: [ 'bootstrap_4_layout.html.twig' ]

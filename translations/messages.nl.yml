@@ -1,0 +1,41 @@
+# Navigation
+page.navigation.route.homepage: Home
+page.navigation.route.gssp_saml_metadata: Metadata
+page.navigation.route.sp_demo: Demo SP
+
+
+# Registration
+
+registration.sub_title: Registratie
+registration.start_button: Gebruik je beveiligingssleutel
+status.registration_initial: Registreer jouw FIDO2 token.
+status.missing_attestation_statement: Probeer het opnieuw en verleen toegang om je FIDO2 token te bekijken.
+
+# Authentication
+
+authentication.sub_title: Authenticeren
+authentication.start_button: Gebruik je beveiligingssleutel
+status.authentication_initial: Authenticeer met jouw FIDO2 token.
+
+# General status messages
+
+status.general_error: Oeps! Er is iets fout gegaan, probeer het opnieuw.
+status.webauthn_not_supported: FIDO2 wordt niet ondersteund door jouw browser.
+status.no_active_request: Geen actieve aanvraag, keer terug naar jouw service provider.
+status.authenticator_not_supported: Dit token wordt niet ondersteund, probeer een andere.
+
+# General
+
+## Buttons
+
+retry: Probeer opnieuw
+cancel: Annuleren
+abort: Afbreken
+
+## Site general
+
+site_title: Authenticeren met jouw FIDO2 token
+error_title: Oeps!
+
+user_not_found.title: Gebruiker onbekend
+user_not_found.description: Er is iets fout gegaan, probeer het later opnieuw.

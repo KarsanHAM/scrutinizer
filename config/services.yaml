@@ -1,0 +1,38 @@
+parameters:
+    locale: nl_NL
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        bind:
+            $logger: '@surfnet_gssp.logger'
+            $stateHandler: '@surfnet_gssp.state_handler.service'
+            $supportUrl: '%support_url%'
+            $supportEmail: '%support_email%'
+            $locales: '%locales%'
+            $userDisplayName: '%user_display_name%'
+            $trustedCertificatesDirectory: '%trusted_certificates_directory%'
+
+    Surfnet\Webauthn\:
+        resource: '../src/*'
+        exclude: '../src/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
+    Surfnet\Webauthn\Repository\:
+        resource: '../src/Repository/*'
+
+    Surfnet\Webauthn\Controller\:
+        resource: '../src/Controller'
+        tags: ['controller.service_arguments']
+
+    Surfnet\GsspBundle\Service\ValueStore\SessionValueStore:
+        alias: surfnet_gssp.value_store.service
+
+    Surfnet\Webauthn\Service\InMemoryAttestationCertificateTrustStore:
+        arguments:
+            - '$trustedCertificates': []
+
+    Surfnet\Webauthn\Service\AttestationCertificateTrustStore:
+        factory: '@Surfnet\Webauthn\Service\AttestationCertificateTrustStoreFactory'
+
+    Webauthn\Bundle\Repository\CanRegisterUserEntity:
+        alias: Surfnet\Webauthn\Repository\UserRepository

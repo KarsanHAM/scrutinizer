@@ -1,0 +1,65 @@
+{% set current_route = app.request.attributes.get( '_route' ) %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <title>{% block title %}{{ 'site_title'|trans }}{% endblock %}</title>
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('global') }}
+    {% endblock %}
+
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
+</head>
+<body>
+
+<div class="header-container">
+    <div class="header">
+        <a class="logo">
+            <img src="{{ asset('build/images/header-logo.png') }}" alt="SURFconext"/>
+        </a>
+        <ul class="links">
+        {% if app.environment == 'dev' or app.environment == 'test' %}
+            <li class="title"><span>{% block header_title %}{{ 'site_title'|trans }}{% endblock %}</span></li>
+        {% endif %}
+        </ul>
+    </div>
+</div>
+{% if app.environment == 'prod' %}
+    {% set pages = ['gssp_saml_metadata'] %}
+{% else %}
+    {% set pages = ['homepage', 'gssp_saml_metadata'] %}
+{% endif %}
+<div class="navigation-container">
+    <div class="navigation">
+        {% for route in pages %}
+            {% set translatekey = "page.navigation.route." ~ route %}
+            <a href="{{ path(route) }}" {% if current_route == route %} class='active'{% endif %}>{{ translatekey|trans }}</a>
+        {% endfor %}
+
+        {% if app.environment == 'dev' or app.environment == 'test' %}
+            <a href="{{ path('sp_demo') }}" {% if current_route == 'sp_demo' %} class='active'{% endif %}>{{ 'page.navigation.route.sp_demo'|trans }}</a>
+        {% endif %}
+
+    </div>
+</div>
+
+<div class="page-container">
+    {# stepup-gssp-bundle and stepup-tiqr use 'body' #}
+    {% block body %}{% endblock %}
+    {# stepup-bundle uses 'content', don't bother, just define them both #}
+    {% block content %}{% endblock %}
+</div>
+
+{% block footer %}
+    <div class="footer">
+        <div class="footer-inner">
+    <span>
+        <a href="{{ global_view_parameters.supportUrl }}" target="_blank">Help</a>
+    </span>
+        </div>
+    </div>
+{% endblock %}
+
+</body>
+</html>
